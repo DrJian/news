@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.bg_img {
+	background: /news/src/main/webapp/resources/img/bg_img.jpg 
+	no-repeat
+	center fixed;
+	background-size: contain
+}
+.news_title_color{
+	color:#222222; text-decoration:none
+}

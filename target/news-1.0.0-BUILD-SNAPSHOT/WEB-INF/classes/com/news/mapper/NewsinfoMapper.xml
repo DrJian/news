@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.dao.NewsinfoMapper">
+	<select id="getNewsinfoById" resultMap="RM">
+		select
+		news_title,news_summary,news_content,createDate,account,topic_name
+		from newsinfo
+		n,topic t,manager m
+		where
+		n.author_id=m.manager_id and
+		n.topic_id =
+		t.topic_id
+		and
+		n.news_id=#{news_id}
+	</select>
+	<resultMap type="com.news.model.Newsinfo" id="RM">
+		<result property="news_title" column="news_title" />
+		<result property="news_summary" column="news_summary" />
+		<result property="news_content" column="news_content" />
+		<result property="createdate" column="createDate" />
+		<association property="manager" javaType="com.news.model.Manager"
+			column="manager_id">
+			<result property="account" column="account" />
+		</association>
+		<association property="topic" javaType="com.news.model.Topic"
+			column="topic_id">
+			<result property="topic_name" column="topic_name" />
+		</association>
+	</resultMap>
+	<insert id="addNewsinfo" parameterType="com.news.model.Newsinfo">
+		<!-- 将插入数据的主键返回，只适用于自增类型的主键
+			 keyProperty:将主键值设置到parameterType哪一个属性
+			 order:执行顺序，相对于insert语句来说它的执行顺序
+			 resultType:指定返回的结果类型int	 -->
+		<selectKey resultType="int" order="AFTER" keyProperty="news_id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into newsinfo
+		(news_title,news_summary,news_content,createDate,author_id,topic_id)
+		values
+		(#{news_title},#{news_summary},#{news_content},#{createDate},#{author_id},#{topic_id})
+		
+	</insert>
+	<delete id="deleteNewsinfo" parameterType="int">
+		delete from newsinfo
+		where news_id=#{news_id}
+	</delete>
+	<update id="updateNewsinfo" parameterType="com.news.model.Newsinfo">
+		update newsinfo
+		set
+		news_title =
+		#{news_title},news_summary=#{news_summary},news_content=#{news_content},createDate=#{createDate}
+		where news_id = #{news_id}
+	</update>
+	<select id="getNewsTotalCount" resultType="int">
+		select count(*) from
+		newsinfo
+	</select>
+	<select id="getNewsTotalCountByType" resultType="int">
+		select count(*)
+		from newsinfo natural join topic
+		where topic.topic_id = #{topic_id}
+	</select>
+	<select id="getNewsinfoListByPageNo" resultMap="RM1">
+		select
+		news_id,news_title,news_summary,news_content,createDate,account,topic_name
+		from newsinfo n,topic t,manager m
+		where n.topic_id = t.topic_id and
+		n.author_id = m.manager_id
+		limit
+		#{pageNo},#{perPageRows}
+	</select>
+	<resultMap type="com.news.model.Newsinfo" id="RM1">
+		<id property="news_id" column="news_id" />
+		<result property="news_title" column="news_title" />
+		<result property="news_summary" column="news_summary" />
+		<result property="news_content" column="news_content" />
+		<result property="createdate" column="createDate" />
+		<association property="manager" javaType="com.news.model.Manager"
+			column="manager_id">
+			<result property="account" column="account" />
+		</association>
+		<association property="topic" javaType="com.news.model.Topic"
+			column="topic_id">
+			<result property="topic_name" column="topic_name" />
+		</association>
+	</resultMap>
+	<select id="getNewsinfoListByTypeAndpageNo" resultMap="RM1">
+		select
+		news_id,news_title,news_summary,news_content,createDate,account,topic_name
+		from newsinfo n,topic t,manager m
+		where n.topic_id = t.topic_id and
+		n.author_id = m.manager_id and t.topic_id=#{topic_id}
+		limit
+		#{pageNo},#{perPageRows}
+	</select>
+	<select id="getNewsTotalCountByVague" resultType="int">
+		select count(*)
+		from newsinfo
+		where newsinfo.news_title like '%${news_title}%'
+	</select>
+	<select id="getNewsinfoListByNewsTitle" resultMap="RM1">
+		selec
+		news_id,news_title,news_summary,news_content,createDate,account,topic_name
+		from newsinfo n,topic t,manager m
+		where n.topic_id = t.topic_id and
+		n.author_id = m.manager_id and n.news_title like '%${news_title}%'
+		order by createDate desc
+		limit
+		#{pageNo},#{perPageRows}
+
+	</select>
+
+</mapper>
