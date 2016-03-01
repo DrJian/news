@@ -22,7 +22,7 @@
 - mysql 5.5
 ##2016-3-1##
 - 新添加了对于新闻添加界面的ajax的使用，即AddNews.html，修改了由于之JS文件引入顺序造成的页面无法正常显示的情况，补充了mysql建库的数据填充脚本，位于resource/sql中。
-- 由原来使用下载好的tomcat7版本，改为使用maven-plugin即插件版本的tomcat7，如果使用JDK8这里的maven-tomcat-plugin要使用2.2及以上版本。
+- 由原来使用下载好的tomcat7版本，改为使用maven-plugin即插件版本的tomcat7，如果使用JDK8这里的maven-tomcat-plugin要使用2.2及以上版本！
 
 ###大家有什么问题欢迎发邮件到###
 > JianHong.Dlut@outlook.com
