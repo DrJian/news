@@ -3,7 +3,8 @@ $(
 			//定义form到JSON对象字符串的转换
 			function FormToJson(){
 				var o = {};    
-				   var formArray = $("#AddNewsForm").serializeArray();    
+				var o1={};
+				   var formArray = $("#UpdateNewsForm").serializeArray();    
 				   $.each(formArray, function() {    
 				       if (o[this.name]) {    
 				           if (!o[this.name].push) {    
@@ -14,9 +15,23 @@ $(
 				           o[this.name] = this.value.trim() || '';    
 				       }    
 				   });
-				   o['createDate']='111';
-				   o['author_id']=1;
-				   o['news_id']=0;
+				   /**
+				    * @author Meng
+				    * @param 字符串形式
+				    * @return Json对象
+				    * 第二种转换字符串的方式，得到序列化后的字符串，
+				    */
+				   /*var formArray = $("#UpdateNewsForm").serialize();
+				   var fisrtSplit = formArray.split("&");
+				   $.each(firstSplit,function(){
+					   var s=this.split("=");
+					   o1[s[0]]=s[1];
+				   })*/
+//				   o['createDate']='111';
+				   o['author_id']=$("#author_id").val();
+				   o['news_id']=$("#news_id").val();
+				   
+//				   o['news_id']=0;
 				   delete o['topic_name'];
 				   var name=$("#topic_name").val();
 				   console.log(name);
@@ -35,7 +50,7 @@ $(
 				   }
 				   return JSON.stringify(o); 
 			}
-			$("#submit1").click(
+			$("#UpdateClick").click(
 					function postJson(event){
 						//阻止表单的默认提交行为
 						event.preventDefault();
@@ -45,25 +60,19 @@ $(
 						$.ajax(
 						{
 							contentType : "application/json",
-							url:"/news/AddNews",
+							url:"/news/UpdateNews",
 							type:"POST",
 							dataType:"json",
 							data:formContent,
 							success:function(data){
-								console.log(data);
-								if(data.result=="success"){
-									alert("添加成功")
-									window.location.href='/news/resources/html/AddNews.html';
+								if(data.isSuccess==="true"){
+									alert("U succeed");
+									window.location.href='/news/resources/html/transfer.html';
 								}else{
-									alert("添加失败")
-									window.location.href='/news/resources/html/AddNews.html';
+									alert("U failed");
+									window.location.href='/news/resources/html/transfer.html';
 								}
 							},
-							error:function(){
-								console.log("未收到数据");
-								alert("添加失败")
-								window.location.href='/news/resources/html/AddNews.html';
-							}
 						}		
 						);
 						

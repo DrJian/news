@@ -1,4 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -18,7 +22,7 @@
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js">
 	
 </script>
-<script src="/news/resources/js/AddNewsAjax.js">
+<script src="/news/resources/js/updateNewsAjax.js">
 	
 </script>
 <title>Insert title here</title>
@@ -41,52 +45,68 @@
 		<img src="/news/resources/img/bg_img4.jpg"
 			style="height: 600px; width: 1000px">
 		<!-- 添加新闻界面 -->
+		<br /> <br />
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-9">
-				<form class="form-horizontal" id="AddNewsForm">
+				<form class="form-horizontal" id="UpdateNewsForm"
+					action="UpdateNews">
+					
+					<div class="form-group">
+						<label for="news_id" class="col-md-2 control-label">新闻id</label>
+						<div class="col-md-2	">
+							<input type="text" name="news_id" class="form-control"
+								id="news_id" value="${NewsinfotoUpdate.news_id }" disabled="disabled">
+						</div>
+						<div class="col-md-8"></div>
+					</div>
+					
 					<div class="form-group">
 						<label for="news_title" class="col-md-2 control-label">新闻标题</label>
 						<div class="col-md-6	">
 							<input type="text" name="news_title" class="form-control"
-								id="news_title" placeholder="新闻标题">
+								id="news_title" value="${NewsinfotoUpdate.news_title }">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
+
 					<div class="form-group">
 						<label for="news_summary" class="col-md-2 control-label">内容汇总</label>
 						<div class="col-md-6">
 							<input type="test" name="news_summary" class="form-control"
-								id="news_summary" placeholder="新闻总结">
+								id="news_summary" value="${NewsinfotoUpdate.news_summary}">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
+
 					<div class="form-group">
 						<label for="news_content" class="col-md-2 control-label">内容概要</label>
 						<div class="col-md-10">
-							<textarea type="text" style="height: 100px; width: 400px"
-								name="news_content" class="form-control" id="news_content"
-								placeholder="内容概要">
+							<textarea type="text" style="height: 150px; width: 400px"
+								name="news_content" class="form-control" id="news_content">${NewsinfotoUpdate.news_content }
 					</textarea>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<label for="createdate" class="col-md-2 control-label">发表时间</label>
 						<div class="col-md-3">
-							<input type="text" class="form-control" id="createdate"
-								name="createdate" placeholder="时间由系统自动生成" disabled="disabled">
+							<input type="text" class="form-control" id="createDate"
+								name="createDate" value="${NewsinfotoUpdate.createDate }">
 						</div>
 						<div class="col-md-7"></div>
 					</div>
+
 					<div class="form-group">
 						<label for="author_id" class="col-md-2 control-label">发表人id</label>
 						<div class="col-md-2">
 							<input type="text" class="form-control" id="author_id"
-								name="author_id" placeholder="由系统在后台自行处理" disabled="disabled">
+								name="author_id" value="${NewsinfotoUpdate.author_id }"
+								disabled="disabled">
 						</div>
 						<div class="col-md-8"></div>
 					</div>
-			
+
 					<div class="form-group">
 						<label for="topic_name" class="col-md-2 control-label">新闻类型</label>
 						<div class="col-md-2">
@@ -104,7 +124,7 @@
 
 					<div class="form-group">
 						<div class="col-md-offset-2 col-md-10 ">
-							<button type="submit" class="btn btn-default" id="submit1">提交</button>
+							<button type="submit" class="btn btn-success" id="UpdateClick">提交修改</button>
 						</div>
 					</div>
 				</form>

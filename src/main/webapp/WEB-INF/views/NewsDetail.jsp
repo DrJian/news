@@ -28,7 +28,7 @@
 	${newsinfo.news_title }<br/><br/>
 	${newsinfo.news_summary}<br/><br/>
 	${newsinfo.news_content }<br/><br/>
-	${newsinfo.createdate}<br/><br/>
+	${newsinfo.createDate}<br/><br/>
 	${newsinfo.topic.topic_name}<br/><br/>
 	${newsinfo.manager.account }<br/><br/>
 	

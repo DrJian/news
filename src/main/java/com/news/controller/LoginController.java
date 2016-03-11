@@ -19,10 +19,15 @@ public class LoginController {
 	private NewsinfoService newsinfoService;
 
 	@RequestMapping(value = "/Login")
-	public String Login() {
+	public static String Login() {
 		return "Login";
 	}
-
+	
+	@RequestMapping("/ToManagerHome")
+	public String ToManagerHome(){
+		return "managerHome";
+	}
+	
 	@RequestMapping(value = "/DoLogin")
 	public String DoLogin(HttpSession session, @RequestParam("account") String account,
 			@RequestParam("password") String password) {

@@ -13,10 +13,10 @@ public interface NewsinfoService {
 	public int addNewsinfo(Newsinfo newsinfo);
 
 	// 删除一条新闻
-	public void deleteNewsinfo(int news_id);
+	public int deleteNewsinfo(int news_id);
 
 	// 更新一条新闻
-	public void updateNewsinfo(Newsinfo newsinfo);
+	public int updateNewsinfo(Newsinfo newsinfo);
 	
 	/**
 	 * 获取默认新闻总数显示在默认首页中

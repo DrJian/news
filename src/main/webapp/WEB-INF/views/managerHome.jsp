@@ -3,7 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-
+<%
+	String requestURI = request.getRequestURI();
+	String contextPath = request.getContextPath();
+	String url = requestURI.substring(contextPath.length());
+%>
 <html>
 <head>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -23,7 +27,7 @@
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js">
 	
 </script>
-<script src="/news/resources/js/transfer.js"></script> 
+<script src="/news/resources/js/transfer.js"></script>
 <title>Welcome!</title>
 </head>
 <body>
@@ -72,7 +76,11 @@
 							<a href="selectedNews?news_id=${newsinfo.news_id }"
 								class="news_title_color">${newsinfo.news_title}</a>
 						<p />
-						<p class="text-muted">${newsinfo.news_summary }</p>
+						<p class="text-muted">${newsinfo.news_summary }
+							&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp <a
+									href="DeleteNews?news_id=${newsinfo.news_id}"
+									class="btn btn-primary btn-danger ">删除</a>
+						</p>
 					</div>
 				</c:forEach>
 				<br /> <a class="btn btn-primary" href="DefaultNewsList?topic_id=0"
@@ -81,17 +89,16 @@
 			<div class="col-md-3">
 				<h2>Operating</h2>
 				<br /> <br /> <a class="btn btn-primary" role="button"
-					
-					id="ToAddNews">添加一条新资讯 &raquo;</a>
-				<!-- onclick="JavaScript:window.location.href='/news/resources/html/AddNews.html'" -->
+					href="ToAddNews" id="ToAddNews">添加一条新资讯 &raquo;</a>
+				<!--  -->
 				<!-- <br /> <br /> <a class="btn btn-primary" role="button"
 					href="ToAddNews">添加一条新资讯 &raquo;</a></p> -->
 			</div>
 		</div>
 		<footer class="bottom">
-		<p>&copy;2016 CoolJ News Websi</p>
+		<p>&copy;2016 CoolJ News Website</p>
 		</footer>
 	</div>
-	
+
 </body>
 </html>

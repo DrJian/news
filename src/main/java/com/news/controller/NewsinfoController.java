@@ -1,10 +1,13 @@
 package com.news.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,7 @@ import com.news.model.Newsinfo;
 import com.news.model.Page;
 import com.news.service.NewsinfoService;
 import com.news.utils.TimeConverter;
+import com.news.utils.URLSplit;
 
 @Controller
 public class NewsinfoController {
@@ -90,12 +94,13 @@ public class NewsinfoController {
 		mav.addObject("newsinfo",newsinfoService.getNewsinfoById(news_id));
 		return mav;
 	}
+	//添加一条新闻
 	@RequestMapping(value="/AddNews",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> AddNews(@RequestBody Newsinfo newsinfo) throws ParseException{
 		//设置作者id以及新闻入库时间
 		newsinfo.setAuthor_id((Integer)session.getAttribute("managerId"));
-		newsinfo.setCreatedate(TimeConverter.getTimeNow());
+		newsinfo.setCreateDate(TimeConverter.getTimeNow());
 		System.out.println(newsinfo);
 		//将新的新闻插入数据库,通过判断返回值来确定插入是否成功,这里返回id值会赋值给newsinfo
 		newsinfoService.addNewsinfo(newsinfo);
@@ -106,6 +111,41 @@ public class NewsinfoController {
 			return map;
 		}
 		map.put("result", "failed");
+		return map;
+	}
+	//删除一条新闻
+	@RequestMapping("/DeleteNews")
+	public String DeleteNews(@RequestParam("news_id")int news_id){
+		//调用newsinfoService删除对应的新闻
+		int result = newsinfoService.deleteNewsinfo(news_id);
+		System.out.println(result);
+		//result不为0表示删除成功
+		if(result==0){
+			return "managerHome";
+		}
+		return "managerHome";
+	}
+	//转入新闻修改界面以及要修改的新闻
+	@RequestMapping("/ToUpdateNews")
+	public String ToUpdateNews(HttpServletRequest request,@RequestParam("news_id")int news_id) throws ParseException{
+		Newsinfo newsinfo = newsinfoService.getNewsinfoById(news_id);
+		HttpSession session = request.getSession();
+		session.setAttribute("NewsinfotoUpdate",newsinfo);
+//		System.out.println(newsinfo);
+		return "updateNews";
+	}
+	//实现修改入库
+	@RequestMapping("/UpdateNews")
+	@ResponseBody
+	public Map<String,String> UpdateNews(HttpServletRequest request,HttpServletResponse response,@RequestBody Newsinfo newsinfo) throws ServletException, IOException{
+		int result = newsinfoService.updateNewsinfo(newsinfo);
+		System.out.println(result);
+		Map<String, String>  map = new HashMap<String,String>();
+		if(result!=0){
+			map.put("isSuccess","true");
+		}else{
+			map.put("isSuccess","false");
+		}
 		return map;
 	}
 }

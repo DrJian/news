@@ -75,14 +75,12 @@ public class Newsinfo  {
 		this.news_content = news_content;
 	}
 
-	
-
-	public String getCreatedate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreatedate(String createdate) {
-		this.createDate = createdate;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	public int getAuthor_id() {

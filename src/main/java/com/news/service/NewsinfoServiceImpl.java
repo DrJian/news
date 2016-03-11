@@ -21,7 +21,7 @@ public class NewsinfoServiceImpl implements NewsinfoService {
 		Newsinfo newsinfo =newsinfoMapper.getNewsinfoById(news_id); 
 		//TimeConverterFromMysql.ConvertTimeFormat(newsinfo.getCreatedate());
 		//newsinfo.setCreatedate(TimeConverterFromMysql.ConvertTimeFormat(newsinfo.getCreatedate()));
-		if(newsinfo.getCreatedate()==null)
+		if(newsinfo.getCreateDate()==null)
 		{
 			System.out.println("this date is null");
 		}
@@ -35,15 +35,15 @@ public class NewsinfoServiceImpl implements NewsinfoService {
 	}
 
 	@Override
-	public void deleteNewsinfo(int news_id) {
+	public int deleteNewsinfo(int news_id) {
 		// TODO Auto-generated method stub
-		newsinfoMapper.deleteNewsinfo(news_id);
+		return newsinfoMapper.deleteNewsinfo(news_id);
 	}
 
 	@Override
-	public void updateNewsinfo(Newsinfo newsinfo) {
+	public int updateNewsinfo(Newsinfo newsinfo) {
 		// TODO Auto-generated method stub
-		newsinfoMapper.updateNewsinfo(newsinfo);
+		return newsinfoMapper.updateNewsinfo(newsinfo);
 	}
 
 	@Override

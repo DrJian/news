@@ -8,8 +8,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/resources/img"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/resources/js"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/WEB-INF/views2"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/resources/html"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/resources/html"/>
 		<property name="java-output-path" value="target/classes"/>
         <property name="context-root" value="news"/>
 	</wb-module>

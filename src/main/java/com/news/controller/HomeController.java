@@ -36,6 +36,7 @@ public class HomeController {
 	List<Newsinfo> newsinfoList = newsinfoService.getNewsinfoListByPageNo(1, 5);
 	session.setAttribute("newsinfoList", newsinfoList);
 	Page page = new Page();
+	page.setPerPageRows(10);
 	if(session.getAttribute("page")==null){
 		session.setAttribute("page", page);
 	}

@@ -5,6 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String requestURI = request.getRequestURI();
+	String contextPath = request.getContextPath();
+	String url = requestURI.substring(contextPath.length());
+%>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -60,21 +65,29 @@
 					<c:forEach items="${newsinfoList }" var="newsinfo">
 						<div>
 							<p>
-								<a href="selectedNews?news_id=${newsinfo.news_id }" class="news_title_color">${newsinfo.news_title}</a>
+								<a href="selectedNews?news_id=${newsinfo.news_id }"
+									class="news_title_color">${newsinfo.news_title}</a>
 							<p />
-							<p class="text-muted">${newsinfo.news_summary }</p>
+							<p class="text-muted">${newsinfo.news_summary }
+								&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp <a
+									href="DeleteNews?news_id=${newsinfo.news_id}"
+									class="btn btn-primary btn-danger ">删除</a>
+							</p>
 						</div>
 					</c:forEach>
 					<br />
 					<ul class="pagination">
 						<c:forEach begin="1" end="${page.totalPageCount }"
 							varStatus="status">
-							<li><a href='DefaultNewsList2?pageNo=${status.count}' id="pageNo">${status.count }</a></li>
+							<li><a href='DefaultNewsList2?pageNo=${status.count}'
+								id="pageNo">${status.count }</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
-
+			<footer class="bottom">
+			<p>&copy;2016 CoolJ News Website</p>
+			</footer>
 		</div>
 </body>
 </html>
